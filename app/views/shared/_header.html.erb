@@ -1,0 +1,24 @@
+<header class="bg-blue-600 text-white">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div>
+      <a href="<%= root_path %>" class="text-xl font-bold">Timer App</a>
+    </div>
+    <nav>
+      <ul class="flex space-x-4">
+        <% if user_signed_in? %>
+          <!-- User is signed in -->
+          <li><%= link_to "Edit Profile", edit_users_profile_path(current_user), class: "hover:text-gray-200" %></li>
+          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "hover:text-gray-200", data: {turbo_method: :delete } %></li>
+        <% elsif admin_signed_in? %>
+          <!-- Admin is signed in -->
+          <li><%#= link_to "Admin Panel", admin_dashboard_path, class: "hover:text-gray-200" %></li>
+          <li><%= link_to "Admin Sign Out", destroy_admin_session_path, method: :delete, class: "hover:text-gray-200", data: {turbo_method: :delete } %></li>
+        <% else %>
+          <!-- Neither is signed in -->
+          <li><%= link_to "Sign In as User", new_user_session_path, class: "hover:text-gray-200" %></li>
+          <li><%= link_to "Sign In as Admin", new_admin_session_path, class: "hover:text-gray-200" %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>

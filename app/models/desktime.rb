@@ -1,0 +1,2 @@
+class Desktime < ApplicationRecord
+end

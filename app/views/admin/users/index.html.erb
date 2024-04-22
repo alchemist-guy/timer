@@ -1,0 +1,30 @@
+<!-- app/views/admin/users/index.html.erb -->
+<div class="container mx-auto px-4 py-6 pl-80">
+  <h1 class="text-2xl font-semibold mb-4">All Users</h1>
+
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse bg-white text-left">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 border-b">Email</th>
+          <th class="px-4 py-2 border-b">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td class="px-4 py-2 border-b"><%= user.email %></td>
+            <td class="px-4 py-2 border-b">
+              <%= link_to 'View', admin_user_path(user), class: "text-blue-600 hover:text-blue-800" %>
+              <%= link_to 'Delete', admin_user_path(user), data: { confirm: 'Are you sure?', "turbo-method": :delete }, class: "text-red-600 hover:text-red-800 ml-2" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to 'Add New User', new_admin_user_path, class: "bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" %>
+  </div>
+</div>

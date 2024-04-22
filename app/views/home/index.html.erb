@@ -1,0 +1,26 @@
+<!-- app/views/home/index.html.erb -->
+<% if current_user.present? %>
+  <div class="max-w-3xl mx-auto p-8 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Welcome to the Timer App</h1>
+
+    <p class="text-lg text-gray-600 text-center mb-8">
+      Keep track of your time with our easy-to-use timer. Click below to start timing your activities.
+    </p>
+
+    <div class="flex justify-center">
+      <%= link_to "Go to Timer",  work_sessions_path, class: "bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition" %>
+    </div>
+
+    <div class="mt-10 text-center text-gray-500 text-sm">
+      For more information, visit our <%#= link_to "about page", about_path, class: "text-blue-500 hover:underline" %>.
+    </div>
+  </div>
+<% else %>
+    <div class="max-w-3xl mx-auto p-8 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Welcome to the Admin Panel</h1>
+
+    <p class="text-lg text-gray-600 text-center mb-8">
+      Keep track of your users Activites.
+    </p>
+  </div>
+<% end %>

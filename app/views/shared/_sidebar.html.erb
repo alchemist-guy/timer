@@ -1,0 +1,37 @@
+<div class="w-64 h-screen bg-black text-white flex flex-col fixed top-0 left-0">
+  <!-- Header Section with App Name or Logo -->
+  <div class="p-6 bg-gray-900 flex items-center justify-center">
+    <h1 class="text-2xl font-bold">My App</h1>
+  </div>
+
+  <!-- Navigation Links -->
+  <div class="flex-grow overflow-y-auto p-4">
+    <nav>
+      <ul class="flex flex-col">
+        <% if current_user.present? %>
+          <li>
+            <%= link_to "Dashboard", root_path, class: "block py-3 px-6 hover:bg-gray-700 rounded-lg transition duration-150 ease-in-out" %>
+          </li>
+          <li>
+            <%= link_to "Time Sheet", work_sessions_path, class: "block py-3 px-6 hover:bg-gray-700 rounded-lg transition duration-150 ease-in-out" %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to "Dashboard", root_path, class: "block py-3 px-6 hover:bg-gray-700 rounded-lg transition duration-150 ease-in-out" %>
+          </li>
+          <li>
+            <%= link_to "All Users", admin_users_path, class: "block py-3 px-6 hover:bg-gray-700 rounded-lg transition duration-150 ease-in-out" %>
+          </li>
+          <li>
+            <%= link_to "Add User", new_admin_user_path, class: "block py-3 px-6 hover:bg-gray-700 rounded-lg transition duration-150 ease-in-out" %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="p-4 text-sm text-gray-400 text-center">
+    &copy; <%= Time.zone.now.year %> My App
+  </div>
+</div>
