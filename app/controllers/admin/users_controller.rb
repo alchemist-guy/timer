@@ -11,6 +11,28 @@ class Admin::UsersController < ApplicationController
     # Show details of a single user
     def show
       @user = User.find(params[:id])
+      today = Time.zone.now
+  
+      # Calculate daily total
+      daily_sessions = @user.work_sessions.where(
+        "start_time >= ? AND start_time < ?", today.beginning_of_day, today.end_of_day
+      )
+      @daily_total_duration = daily_sessions.sum(&:total_duration)
+  
+      # Calculate weekly total
+      weekly_sessions = @user.work_sessions.where(
+        "start_time >= ? AND start_time < ?", today.beginning_of_week, today.end_of_week
+      )
+      @weekly_total_duration = weekly_sessions.sum(&:total_duration)
+  
+      # Calculate monthly total
+      monthly_sessions = @user.work_sessions.where(
+        "start_time >= ? AND start_time < ?", today.beginning_of_month, today.end_of_month
+      )
+      @monthly_total_duration = monthly_sessions.sum(&:total_duration)
+  
+      # Group sessions by date for display
+      @grouped_sessions = @user.work_sessions.group_by { |ws| ws.start_time.to_date }
     end
   
     # Render a form to create a new user

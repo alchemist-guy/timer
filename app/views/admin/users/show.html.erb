@@ -6,6 +6,54 @@
     <p><strong>Email:</strong> <%= @user.email %></p>
   </div>
 
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-gray-700 mb-6">
+    <div class="bg-blue-100 p-4 rounded-lg shadow">
+      <p class="font-bold">Daily Total</p>
+      <p><strong><%= @daily_total_duration %> minutes</strong></p>
+    </div>
+    <div class="bg-green-100 p-4 rounded-lg shadow">
+      <p class="font-bold">Weekly Total</p>
+      <p><strong><%= @weekly_total_duration %> minutes</strong></p>
+    </div>
+    <div class="bg-yellow-100 p-4 rounded-lg shadow">
+      <p class="font-bold">Monthly Total</p>
+      <p><strong><%= @monthly_total_duration %> minutes</strong></p>
+    </div>
+  </div>
+
+  <div>
+    <% @grouped_sessions.each do |date, sessions| %>
+      <h3 class="text-xl font-bold text-gray-800 mt-6">Work Sessions for <%= date.strftime("%B %d, %Y") %></h3>
+      
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white rounded-lg shadow">
+          <thead>
+            <tr>
+              <th class="px-4 py-2 text-left text-gray-700 font-semibold">Start Time</th>
+              <th class="px-4 py-2 text-left text-gray-700 font-semibold">End Time</th>
+              <th class="px-4 py-2 text-left text-gray-700 font-semibold">Duration (min)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% sessions.each do |session| %>
+              <tr class="hover:bg-gray-100 transition">
+                <td class="px-4 py-2 text-gray-800"><%= session.start_time.strftime("%I:%M %p") %></td>
+                <td class="px-4 py-2 text-gray-800"><%= session.end_time ? session.end_time.strftime("%I:%M %p") : "In Progress" %></td>
+                <td class="px-4 py-2 text-gray-800">
+                  <% if session.end_time %>
+                    <%= session.total_duration %>
+                  <% else %>
+                    <span id="timer-<%= session.id %>">Calculating...</span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+
   <div class="mt-4">
     <%= link_to 'Back to User List', admin_users_path, class: "bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700" %>
   </div>
